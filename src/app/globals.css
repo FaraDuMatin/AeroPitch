@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #050505;
+  --foreground: #f5f5f5;
+  --aether-charcoal: #050505;
+  --aether-charcoal-soft: #0a0a0a;
+  --aether-sage: #b0c4b1;
+  --aether-bluegrey: #2c3e50;
+  --aether-text-main: #ffffff;
+  --aether-text-body: #a1a1a1;
+  --aether-text-muted: #555555;
+  --aether-glass: rgba(255, 255, 255, 0.05);
+  --aether-glass-border: rgba(255, 255, 255, 0.2);
 }
 
 @theme inline {
@@ -12,15 +21,177 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 82% 14%, rgb(176 196 177 / 0.16), transparent 42%),
+    radial-gradient(circle at 12% 88%, rgb(44 62 80 / 0.3), transparent 50%),
+    linear-gradient(130deg, var(--aether-charcoal) 0%, var(--aether-charcoal-soft) 100%);
+  color: var(--aether-text-main);
+  font-family: var(--font-geist-sans), "Segoe UI", sans-serif;
+}
+
+.aether-panel {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(18px);
+}
+
+.aether-pill {
+  border-radius: 9999px;
+}
+
+.aether-node {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.24), 0 0 20px rgb(176 196 177 / 0.45);
+}
+
+.aether-gridline {
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.spline-base {
+  stroke: #00e5ff;
+  stroke-width: 1.4;
+  stroke-opacity: 0.88;
+  fill: none;
+}
+
+.spline-soft {
+  stroke-opacity: 0.58;
+}
+
+.spline-faint {
+  stroke-opacity: 0.38;
+}
+
+.spline-pulse {
+  stroke: #7ff4ff;
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  stroke-opacity: 0.95;
+  fill: none;
+  stroke-dasharray: 1 24;
+  filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.85));
+  animation: splinePulse 2.6s linear infinite;
+}
+
+.pulse-delay-1 {
+  animation-delay: 0.35s;
+}
+
+.pulse-delay-2 {
+  animation-delay: 0.8s;
+}
+
+.pulse-delay-3 {
+  animation-delay: 1.2s;
+}
+
+.data-trail {
+  animation: trailDrop 2.8s ease-in-out infinite;
+}
+
+.pulse-aura {
+  animation: auraPulse 2.3s ease-in-out infinite;
+}
+
+.drone-flight {
+  animation: droneFlight 4.2s ease-in-out infinite;
+}
+
+.drone-hover {
+  animation: droneHover 1.8s ease-in-out infinite;
+}
+
+.drone-picking {
+  animation: dronePicking 1.5s ease-in-out;
+}
+
+.drone-dropping {
+  animation: droneDropping 0.8s ease-in-out;
+}
+
+@keyframes trailDrop {
+  0% {
+    transform: translateY(-18px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(54px);
+    opacity: 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes auraPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.32;
+  }
+  50% {
+    transform: scale(1.07);
+    opacity: 0.55;
+  }
+}
+
+@keyframes splinePulse {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+
+@keyframes droneFlight {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(88px);
+  }
+}
+
+@keyframes droneHover {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes dronePicking {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+@keyframes droneDropping {
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(-50%, calc(-50% + 8px));
+  }
+}
+
+@media (max-width: 768px) {
+  .drone-flight {
+    animation-duration: 5.2s;
+  }
+
+  .data-trail {
+    animation-duration: 3.4s;
+  }
 }
